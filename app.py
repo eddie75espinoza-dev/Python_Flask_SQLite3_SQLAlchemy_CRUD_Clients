@@ -11,7 +11,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/client.db' #ruta de la DB
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/client.db' #ruta de la DB, si es 
+# requerido cambiar
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -26,8 +27,8 @@ def index():
     users = User.query.all()
     return render_template('index.html', list_users = users)
 
-@app.route('/add_client', methods = ['POST'])
-def addCliente():
+@app.route('/add_user', methods = ['POST'])
+def add_user():
     user = User(user = request.form['User'], name =  request.form['Name'], phone = request.form['Phone']) #Uso de la class
     db.session.add(user) # Agrega el usuario con SQLAlchemy
     db.session.commit() 
@@ -36,8 +37,9 @@ def addCliente():
 @app.route('/consult/<id>')
 def consultUser(id):
    user = User.query.filter_by(id = int(id)).first()
+   
    db.session.commit()
-   return user.name + ' ' + user.phone
+   return render_template('consult.html', user = user)
 
 @app.route('/delete/<id>')
 def deleteUser(id):
@@ -46,4 +48,4 @@ def deleteUser(id):
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    app.run(debug=True, port = 5000)
+    app.run(host='127.0.0.1', port = 4000, threaded=True, debug=True) # Red host='192.168.0.99'

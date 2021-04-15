@@ -13,12 +13,19 @@
     <title>Clientes</title>
 </head>
 <body>
-    <main class="container p-4">
+    <div class="container p-4">
         <H1 class="display 4 text-center mt-5">Clientes</H1>
-        {% include 'add_user.html' %}
-    
+        <div class="card" style="width: 18rem;">
+            <img src="{{ url_for('.static', filename='img/logoE256blue.png') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ user.name }}</h5>
+              <p class="card-text">{{ user.user }}</p>
+              <p class="card-text">{{ user.phone }}</p>
+              <a href="/" class="btn btn-success">Back</a>
+            </div>
+          </div> 
 
-    </main>
+    </div>
     
 </body>
 </html>

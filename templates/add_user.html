@@ -1,0 +1,30 @@
+{% block content %}
+<div class="row">
+    <div class="col-md-4 offset-md-4 my-auto">
+        <div class="card">
+            <div class="card-header">
+                <form action="/add_user" method="POST">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="User" placeholder="User" autofocus>
+                        <input class="form-control" type="text" name="Name" placeholder="Name">
+                        <input class="form-control" type="text" name="Phone" placeholder="Phone"> 
+                    </div>
+                    <button class= "btn btn-primary btn-block" type="submit">Save</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for list_user in list_users %}                            
+                        <li class="list-group-item">
+                            <p>{{ list_user.user }}</p> 
+                            <p><strong>Name: </strong>{{ list_user.name }}</p>
+                            <a href="/consult/{{list_user.id}}" class="btn btn-secondary">Consult</a>
+                            <a href="/delete/{{list_user.id}}" class="btn btn-danger">Delete</a>
+                        </li>                            
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
